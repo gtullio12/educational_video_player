@@ -2,7 +2,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-const GET_URL_API = "https://take-home-assessment-423502.uc.r.appspot.com/api/videos";
+const POST_URL_API = "https://take-home-assessment-423502.uc.r.appspot.com/api/videos";
 
 
 export class Popup extends React.Component {
@@ -51,7 +51,7 @@ export class Popup extends React.Component {
         <Button onClick={() => this.props.setIsPopoverOpen(!this.props.isPopoverOpen)}>Cancel</Button>
         <Button onClick={() => {
             // Call POST create video
-            fetch(GET_URL_API, {
+            fetch(POST_URL_API, {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json",

@@ -5,13 +5,9 @@ import Videos from "./Videos";
 class Home extends React.Component {
   render() {
     return (
-      <div>
-        <div>
-          <TopNavBar />
-        </div>
-        <div>
-          <Videos />
-        </div>
+      <div Name="home" >
+        <TopNavBar />
+        <Videos />
       </div>
     );
   }
