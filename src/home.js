@@ -3,10 +3,6 @@ import TopNavBar from "./Navbar";
 import Videos from "./Videos";
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
@@ -14,7 +10,7 @@ class Home extends React.Component {
           <TopNavBar />
         </div>
         <div>
-        <Videos />
+          <Videos />
         </div>
       </div>
     );
