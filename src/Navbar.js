@@ -64,7 +64,6 @@ const TopNavBar = (popup) => {
                   onClick={() => {
                     setIsPopoverOpen(!isPopoverOpen);
                   }}
-                  type="upload"
                 >
                   Upload
                 </Button>

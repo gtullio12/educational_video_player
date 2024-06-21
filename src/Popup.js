@@ -1,30 +1,31 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { api } from "./api";
 
-const POST_URL_API = "https://take-home-assessment-423502.uc.r.appspot.com/api/videos";
-
+const POST_URL_API =
+  "https://take-home-assessment-423502.uc.r.appspot.com/api/videos";
 
 export class Popup extends React.Component {
   constructor(props) {
     super(props);
     this.setState({
-        title: '',
-        videoLink:''
+      title: "",
+      videoLink: "",
     });
     this.handleLinkChange = this.handleLinkChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
   }
 
-  handleTitleChange (event) {
+  handleTitleChange(event) {
     this.setState({
-        title: event.target.value
+      title: event.target.value,
     });
   }
 
   handleLinkChange(event) {
     this.setState({
-        videoLink: event.target.value
+      videoLink: event.target.value,
     });
   }
 
@@ -48,26 +49,26 @@ export class Popup extends React.Component {
             aria-label="Link"
           />
         </Form>
-        <Button onClick={() => this.props.setIsPopoverOpen(!this.props.isPopoverOpen)}>Cancel</Button>
-        <Button onClick={() => {
+        <Button
+          onClick={() => this.props.setIsPopoverOpen(!this.props.isPopoverOpen)}
+        >
+          Cancel
+        </Button>
+        <Button
+          onClick={() => {
             // Call POST create video
-            fetch(POST_URL_API, {
-                method: 'POST',
-                headers: {
-                    "Content-type": "application/json",
-                    "accept": "application/json"
-                },
-                body: JSON.stringify({
-                    user_id: "garret_tullio",
-                    description: "Cool video",
-                    video_url: this.state.videoLink,
-                    title: this.state.title
-                }) 
-            })
-            .then((response) => response.json())
-            .then((response) => console.log(response));
-
-        }}>Upload</Button>
+            api.post(POST_URL_API, {
+              user_id: "garret_tullio",
+              description: "Cool video",
+              video_url: this.state.videoLink,
+              title: this.state.title,
+            }).then(response => response.json())
+            .then(response => console.log(response))
+             .then((response) => console.log(response));
+          }}
+        >
+          Upload
+        </Button>
       </div>
     );
   }
