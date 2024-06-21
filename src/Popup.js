@@ -3,9 +3,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { api } from "./api";
 
-const POST_URL_API =
-  "https://take-home-assessment-423502.uc.r.appspot.com/api/videos";
-
 export class Popup extends React.Component {
   constructor(props) {
     super(props);
@@ -57,7 +54,7 @@ export class Popup extends React.Component {
         <Button
           onClick={() => {
             // Call POST create video
-            api.post(POST_URL_API, {
+            api.post(process.env.REACT_APP_POST_VIDEO_API_URL, {
               user_id: "garret_tullio",
               description: "Cool video",
               video_url: this.state.videoLink,

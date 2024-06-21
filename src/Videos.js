@@ -63,14 +63,11 @@ const TEMPORARY_DATA = {
   ],
 };
 
-const GET_API_URL =
-  "https://take-home-assessment-423502.uc.r.appspot.com/api/videos?user_id=garret_tullio";
-
 const Videos = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    api.get(GET_API_URL)
+    api.get(process.env.REACT_APP_GET_VIDEOS_API_URL)
       .then(response => response.json())
       .then(response => setVideos(response.videos));
   });

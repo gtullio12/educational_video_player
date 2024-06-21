@@ -1,16 +1,17 @@
 import React from "react";
 import TopNavBar from "./Navbar";
 import ViewVideo from "./ViewVideo";
+import { useLocation } from "react-router-dom";
 
-export class View extends React.Component {
-  render() {
-    return (
-      <div>
-        <TopNavBar />
-        <ViewVideo />
-      </div>
-    );
-  }
-}
+const View = () => {
+  const location = useLocation();
+  const videoId = location.pathname.split('/')[2];
+  return (
+    <div>
+      <TopNavBar />
+      <ViewVideo videoId={videoId}/>
+    </div>
+  );
+};
 
 export default View;
