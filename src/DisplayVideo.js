@@ -1,16 +1,31 @@
 import { CommentIcon, ProfileIcon } from "./Icons";
+import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
+import { api } from "./api";
 
-const DisplayVideo = ({
-  title,
-  user,
-  num_comments,
-  comments,
-  description,
-  video_url,
-  id,
-}) => {
-  const display_comments = comments.comments.map((comment) => {
+const DisplayVideo = ({videoId}) => {
+  const [userComment, setUserComment] = useState("");
+  const [videoComments, setVideoComments] = useState({ comments: [] });
+  const [displayVideo, setDisplayVideo] = useState({});
+
+  function updateComments() {
+    api
+      .get(process.env.REACT_APP_GET_VIDEO_COMMENTS_URL + videoId)
+      .then((response) => response.json())
+      .then((response) => {
+        setVideoComments({ comments: response.comments });
+      });
+  }
+
+  useEffect(() => {
+    updateComments();
+    api
+      .get(process.env.REACT_APP_GET_VIDEO_API_URL + videoId)
+      .then((response) => response.json())
+      .then((response) => setDisplayVideo(response.video));
+  }, []);
+
+  const display_comments = videoComments.comments.map((comment) => {
     return (
       <div>
         <div style={{ display: "flex", flexDirection: "row" }}>
@@ -23,29 +38,47 @@ const DisplayVideo = ({
   });
   return (
     <div>
-      {video_url && (
-        <video controls>
-          <source src={video_url} type="video/mp4" />
+      {displayVideo.video_url && (
+        <video controls width="100%">
+          <source src={displayVideo.video_url} type="video/mp4" />
         </video>
       )}
-      <h1>{title}</h1>
+      <h1>{displayVideo.title}</h1>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <ProfileIcon />
-        <p>{user}</p>
+        <p>{displayVideo.user}</p>
       </div>
-      <h2>Comments * {num_comments}</h2>
-      <Form style={{ display: "flex", flexDirection: "row" }} >
-        <Form.Control type="comment" placeholder="Add your comment..."/>
-        <Button variant="primary">Comment</Button>
+      <h2>Comments * {displayVideo.num_comments}</h2>
+      <Form style={{ display: "flex", flexDirection: "row" }}>
+        <Form.Control
+          onChange={(e) => {
+            setUserComment(e.target.value);
+          }}
+          type="comment"
+          placeholder="Add your comment..."
+        />
+        <Button
+          onClick={() => {
+            api.post(process.env.REACT_APP_POST_COMMENT_API_URL, {
+              video_id: videoId,
+              content: userComment,
+              user_id: "garret_tullio",
+            })
+            .then(() => updateComments());
+          }}
+          variant="primary"
+        >
+          Comment
+        </Button>
       </Form>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <CommentIcon />
-        <p>{num_comments} comments</p>
+        <p>{displayVideo.num_comments} comments</p>
       </div>
       <div>
-        <p>{description}</p>
+        <p>{displayVideo.description}</p>
       </div>
-      <div>{display_comments}</div>
+      {display_comments && <div>{display_comments}</div>}
     </div>
   );
 };

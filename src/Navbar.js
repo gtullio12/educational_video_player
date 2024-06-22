@@ -8,6 +8,7 @@ import { Popover, ArrowContainer } from "react-tiny-popover";
 import { Popup } from "./Popup";
 
 const TopNavBar = (popup) => {
+  console.log("creating top nav bar")
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   return (
     <div>
