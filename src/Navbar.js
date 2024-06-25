@@ -1,12 +1,13 @@
 import React from "react";
+import Popup from "./Popup";
 import logo from "./logos/FULL_LOGO_COLOR.png";
 import Navbar from "react-bootstrap/Navbar";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
 import { Popover, ArrowContainer } from "react-tiny-popover";
-import { Popup } from "./Popup";
 import { withRouter } from "./withRouter";
+import { Link } from "react-router-dom";
 
 export class TopNavBar extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export class TopNavBar extends React.Component {
 
   handleSearch() {
     if (this.state.searchVideoContent.length !== 0) {
-      this.props.navigate('/search/'+this.state.searchVideoContent);
+      this.props.navigate("/search/" + this.state.searchVideoContent);
     }
   }
 
@@ -47,34 +48,41 @@ export class TopNavBar extends React.Component {
           className="bg-body-tertiary"
         >
           <Container>
-            <Form style={{ display: "flex", flexDirection: "row" }} inline >
+            <Form style={{ display: "flex", flexDirection: "row" }} inline>
               <Form.Control
                 value={this.state.searchVideoContent}
                 onChange={(e) => {
-                  this.setSearchVideoContent(e.target.value)
+                  this.setSearchVideoContent(e.target.value);
                 }}
                 placeholder="Search Videos..."
                 aria-label="Search Videos..."
                 aria-describedby="basic-addon1"
               ></Form.Control>
-              <Button onClick={(event) => {
-                event.preventDefault();
-                this.handleSearch();
-              }} type="search">Search</Button>
+              <Button
+                onClick={(event) => {
+                  event.preventDefault();
+                  this.handleSearch();
+                }}
+                type="search"
+              >
+                Search
+              </Button>
             </Form>
             <Form inline>
               <Navbar.Brand href="#home">
-                <img
-                  width={150}
-                  height={40}
-                  src={logo}
-                  className="d-inline-block align-top"
-                />
+                <Link to="/">
+                  <img
+                    width={150}
+                    height={40}
+                    src={logo}
+                    className="d-inline-block align-top"
+                  />
+                </Link>
               </Navbar.Brand>
             </Form>
             <Form inline>
               <Popover
-                isOpen={this.state.isPopoverOpen}
+                isOpen={this.state.isPopOverOpen}
                 positions={["top", "bottom", "left", "right"]} // if you'd like, you can limit the positions
                 padding={10} // adjust padding here!
                 onClickOutside={() => this.setIsPopoverOpen(false)}
