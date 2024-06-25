@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Video from "./Video";
 import { api } from "./api";
 
-const RecommendVideos = ({ setCurrentVideoId}) => {
+const RecommendVideos = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
@@ -10,7 +10,8 @@ const RecommendVideos = ({ setCurrentVideoId}) => {
       .get(process.env.REACT_APP_GET_VIDEOS_API_URL)
       .then((response) => response.json())
       .then((response) => setVideos(response.videos));
-  }, []);
+  });
+
 
   const videosFromApi = videos.map((v) => {
     return (
@@ -21,7 +22,6 @@ const RecommendVideos = ({ setCurrentVideoId}) => {
         description={v.description}
         video_url={v.video_url}
         id={v.id}
-        setCurrentVideoId={setCurrentVideoId}
       />
     );
   });

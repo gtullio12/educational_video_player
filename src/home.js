@@ -5,7 +5,7 @@ import Videos from "./Videos";
 class Home extends React.Component {
   render() {
     return (
-      <div Name="home" >
+      <div Name="home">
         <TopNavBar />
         <Videos />
       </div>

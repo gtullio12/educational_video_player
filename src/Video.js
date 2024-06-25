@@ -1,17 +1,20 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { ProfileIcon, CommentIcon, BackgroundIcon } from "./Icons";
+import { useNavigate } from "react-router";
 
 const cardStyle = {
   width: "30rem",
 };
 
-const Video = ({title, user, comments, id, setCurrentVideoId}) => {
+const Video = ({title, user, comments, id}) => {
+  const navigate = useNavigate();
 
   return (
     <Card as="a" onClick={() => {
-      console.log('Setting current id to --> ' + id);
-      setCurrentVideoId(id)}
+      navigate('/video/'+id);
+      navigate(0);
+    }
      } style={cardStyle}>
       <Card.Body>
         <BackgroundIcon />

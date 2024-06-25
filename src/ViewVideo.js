@@ -1,14 +1,12 @@
 import RecommendVideos from "./RecommendVideos";
 import DisplayVideo from "./DisplayVideo";
-import { useEffect } from "react";
-import { api } from "./api";
+import React from "react";
 
-const ViewVideo = ({ videoId }) => {
-
+const ViewVideo = ({ currentVideoId }) => {
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
-    <div>
-        <DisplayVideo videoId={videoId} />
+      <div>
+        <DisplayVideo currentVideoId={currentVideoId} />
       </div>
       <div>
         <RecommendVideos />

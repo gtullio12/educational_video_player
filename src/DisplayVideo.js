@@ -3,14 +3,15 @@ import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { api } from "./api";
 
-const DisplayVideo = ({videoId}) => {
+const DisplayVideo = ({currentVideoId}) => {
   const [userComment, setUserComment] = useState("");
   const [videoComments, setVideoComments] = useState({ comments: [] });
   const [displayVideo, setDisplayVideo] = useState({});
 
   function updateComments() {
+    console.log(currentVideoId);
     api
-      .get(process.env.REACT_APP_GET_VIDEO_COMMENTS_URL + videoId)
+      .get(process.env.REACT_APP_GET_VIDEO_COMMENTS_URL + currentVideoId)
       .then((response) => response.json())
       .then((response) => {
         setVideoComments({ comments: response.comments });
@@ -20,10 +21,10 @@ const DisplayVideo = ({videoId}) => {
   useEffect(() => {
     updateComments();
     api
-      .get(process.env.REACT_APP_GET_VIDEO_API_URL + videoId)
+      .get(process.env.REACT_APP_GET_VIDEO_API_URL + currentVideoId)
       .then((response) => response.json())
       .then((response) => setDisplayVideo(response.video));
-  }, []);
+  },[]);
 
   const display_comments = videoComments.comments.map((comment) => {
     return (
@@ -60,7 +61,7 @@ const DisplayVideo = ({videoId}) => {
         <Button
           onClick={() => {
             api.post(process.env.REACT_APP_POST_COMMENT_API_URL, {
-              video_id: videoId,
+              video_id: currentVideoId,
               content: userComment,
               user_id: "garret_tullio",
             })
