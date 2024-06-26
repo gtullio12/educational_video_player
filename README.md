@@ -9,7 +9,7 @@ Go to root directory and run \
 `npm install` \
 `npm run build` \
 `npm start` \
-Go to `localhost:3000` \ \
+Go to `localhost:3000` 
 
 In order to upload a video navigate to this [page](https://gist.github.com/deepakpk009/99fd994da714996b296f11c3c371d5ee) and copy one of the mp4 file links, give the video a title and press submit. 
 
