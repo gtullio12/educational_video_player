@@ -4,6 +4,10 @@ import { TopNavBar } from "./Navbar";
 import Video from "./Video";
 import { Row } from "react-bootstrap";
 
+/**
+ * Shows list of videos based off of users search.
+ * Will search based off of title of video.
+ */
 const SearchVideos = () => {
   const [videos, setVideos] = useState([]);
 
@@ -18,12 +22,14 @@ const SearchVideos = () => {
 
   // Filter videos based off of search
   const matchingVideos = videos.filter((v) => {
+    // return true if the search is a substring of the original video title
     return v.title.includes(searchVideo);
   });
 
   const videoComponents = matchingVideos.map((v) => {
     return (
       <Video
+        date={v.created_at}
         title={v.title}
         user={v.user_id}
         comments={v.num_comments}
@@ -34,14 +40,14 @@ const SearchVideos = () => {
     );
   });
 
-  console.log(matchingVideos);
-
   return (
     <div>
       <TopNavBar />
-      <Row xs={1} md={2} className="g-4">
-        {videoComponents}
-      </Row>
+      <div className="home-page-videos">
+        <Row md={3} className="videos">
+          {videoComponents}
+        </Row>
+      </div>
     </div>
   );
 };

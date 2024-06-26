@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Col } from "react-bootstrap";
 import { ProfileIcon, CommentIcon, BackgroundIcon } from "./Icons";
 import { useNavigate } from "react-router";
+import { getDateDifference } from "./Date";
 
 const cardStyle = {
   margin: "5px",
@@ -9,11 +10,13 @@ const cardStyle = {
   borderRadius: '20px'
 };
 
+/**
+ * Component Video card. Should have the thumbnail of the video which is just a colored background.
+ * Also contains the profile of the user, and amount of comments, and date was posted
+ */
 const Video = ({ date, title, user, comments, id }) => {
   const navigate = useNavigate();
-
-  const currentDate = Date.now();
-  const diffDays = parseInt((currentDate - date) / (1000 * 60 * 60 * 24), 10);
+  const diffDays = getDateDifference(date);
 
   return (
     <Col>

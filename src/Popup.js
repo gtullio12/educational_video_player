@@ -4,6 +4,9 @@ import Button from "react-bootstrap/Button";
 import { api } from "./api";
 import { useNavigate } from "react-router";
 
+/**
+ * Containes the content of the popup window
+ */
 const Popup = ({ isPopoverOpen, setIsPopoverOpen }) => {
   const [link, setLink] = useState("");
   const [title, setTitle] = useState("");

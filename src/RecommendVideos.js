@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import Video from "./Video";
 import { api } from "./api";
 
+/**
+ * Component lives in the ViewVideo component.
+ * Shows list of other videos on the side of displaying videos
+ */
 const RecommendVideos = () => {
   const [videos, setVideos] = useState([]);
 

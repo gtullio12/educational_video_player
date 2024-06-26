@@ -1,3 +1,6 @@
+/**
+ * Removes repitition for calling APIs
+ */
 const api = {
   get: (endpoint) =>
     fetch(endpoint, {

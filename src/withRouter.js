@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router";
 
+/**
+ * This function is for allowing navigation inside a class component
+ */
 export const withRouter = (Component) => {
     const Wrapper = (props) => {
       const navigate = useNavigate();

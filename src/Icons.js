@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Class for storing simple icons
+ */
 export class ProfileIcon extends React.Component {
   render() {
     return (

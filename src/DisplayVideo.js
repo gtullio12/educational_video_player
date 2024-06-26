@@ -2,26 +2,17 @@ import { ProfileIcon } from "./Icons";
 import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { api } from "./api";
+import { getDateDifference, getFormatDate } from "./Date";
 
 const DisplayVideo = ({ currentVideoId }) => {
   const [userComment, setUserComment] = useState("");
   const [videoComments, setVideoComments] = useState({ comments: [] });
   const [displayVideo, setDisplayVideo] = useState({});
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
+  /**
+   * Retrieves all comments from video. This will be called multiple times 
+   * because comments are dynamically added
+   */
   function updateComments() {
     api
       .get(process.env.REACT_APP_GET_VIDEO_COMMENTS_URL + currentVideoId)
@@ -31,6 +22,9 @@ const DisplayVideo = ({ currentVideoId }) => {
       });
   }
 
+  /**
+   * Will only be called once when page loads. Retrieves specific video to play
+   */
   useEffect(() => {
     updateComments();
     api
@@ -39,18 +33,12 @@ const DisplayVideo = ({ currentVideoId }) => {
       .then((response) => setDisplayVideo(response.video));
   }, []);
 
-  const uploadedDate = new Date(displayVideo.created_at);
-  const formatDate =
-    monthNames[uploadedDate.getMonth()] +
-    " " +
-    uploadedDate.getDate() +
-    ", " +
-    uploadedDate.getFullYear();
+  // Get formated date
+  const formatDate = getFormatDate(displayVideo.created_at);
 
+  // Map each comment to a JSX element
   const display_comments = videoComments.comments.map((comment) => {
-    const date = new Date(comment.created_at);
-    const currentDate = Date.now();
-    const diffDays = parseInt((currentDate - date) / (1000 * 60 * 60 * 24), 10);
+    const diffDays = getDateDifference(comment.created_at);
 
     return (
       <div style={{marginBottom: '30px', marginTop: '30px'}}>
@@ -65,6 +53,8 @@ const DisplayVideo = ({ currentVideoId }) => {
       </div>
     );
   });
+
+  // Renders both video and comment section
   return (
     <div>
       {displayVideo.video_url && (

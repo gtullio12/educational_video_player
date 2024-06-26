@@ -17,6 +17,9 @@ const logoStyle = {
   height: "100px",
 };
 
+/**
+ * Component for the top navbar. The navbar is in every page of the website
+ */
 export class TopNavBar extends React.Component {
   constructor(props) {
     super(props);
