@@ -14,7 +14,7 @@ const Videos = () => {
   },[]);
 
   const videosFromApi = videos.map((v) => {
-    return <Video title={v.title} user={v.user_id} comments={v.num_comments} description={v.description} video_url={v.video_url} id={v.id} />
+    return <Video date={new Date(v.created_at)} title={v.title} user={v.user_id} comments={v.num_comments} description={v.description} video_url={v.video_url} id={v.id} />
   })
 
   return (

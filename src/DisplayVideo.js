@@ -3,13 +3,15 @@ import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { api } from "./api";
 
-const DisplayVideo = ({currentVideoId}) => {
+const DisplayVideo = ({ currentVideoId }) => {
   const [userComment, setUserComment] = useState("");
   const [videoComments, setVideoComments] = useState({ comments: [] });
   const [displayVideo, setDisplayVideo] = useState({});
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
 
   function updateComments() {
-    console.log(currentVideoId);
     api
       .get(process.env.REACT_APP_GET_VIDEO_COMMENTS_URL + currentVideoId)
       .then((response) => response.json())
@@ -24,7 +26,10 @@ const DisplayVideo = ({currentVideoId}) => {
       .get(process.env.REACT_APP_GET_VIDEO_API_URL + currentVideoId)
       .then((response) => response.json())
       .then((response) => setDisplayVideo(response.video));
-  },[]);
+  }, []);
+
+  const uploadedDate = new Date(displayVideo.created_at);
+  const formatDate = monthNames[uploadedDate.getMonth()] + " " + uploadedDate.getDate() + ", " + uploadedDate.getFullYear();
 
   const display_comments = videoComments.comments.map((comment) => {
     return (
@@ -47,7 +52,7 @@ const DisplayVideo = ({currentVideoId}) => {
       <h1>{displayVideo.title}</h1>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <ProfileIcon />
-        <p>{displayVideo.user}</p>
+        <p>{displayVideo.user_id} * Uploaded {formatDate}</p>
       </div>
       <h2>Comments * {displayVideo.num_comments}</h2>
       <Form style={{ display: "flex", flexDirection: "row" }}>
@@ -55,17 +60,20 @@ const DisplayVideo = ({currentVideoId}) => {
           onChange={(e) => {
             setUserComment(e.target.value);
           }}
+          value={userComment}
           type="comment"
           placeholder="Add your comment..."
         />
         <Button
           onClick={() => {
-            api.post(process.env.REACT_APP_POST_COMMENT_API_URL, {
-              video_id: currentVideoId,
-              content: userComment,
-              user_id: "garret_tullio",
-            })
-            .then(() => updateComments());
+            api
+              .post(process.env.REACT_APP_POST_COMMENT_API_URL, {
+                video_id: currentVideoId,
+                content: userComment,
+                user_id: "garret_tullio",
+              })
+              .then(() => updateComments());
+            setUserComment("");
           }}
           variant="primary"
         >

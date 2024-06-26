@@ -2,9 +2,8 @@ import React from "react";
 import Popup from "./Popup";
 import logo from "./logos/FULL_LOGO_COLOR.png";
 import Navbar from "react-bootstrap/Navbar";
-import { Form } from "react-bootstrap";
+import { Form, Nav } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { Container } from "react-bootstrap";
 import { Popover, ArrowContainer } from "react-tiny-popover";
 import { withRouter } from "./withRouter";
 import { Link } from "react-router-dom";
@@ -45,10 +44,18 @@ export class TopNavBar extends React.Component {
           bg="dark"
           data-bs-theme="dark"
           sticky="top"
-          className="bg-body-tertiary"
+          expand="lg"
+          className="bg-body-tertiary justify-content-between"
         >
-          <Container>
-            <Form style={{ display: "flex", flexDirection: "row" }} inline>
+          <Nav classname="ml-auto">
+            <Form
+              style={{
+                marginLeft: '1rem',
+                display: "flex",
+                flexDirection: "row",
+              }}
+              inline
+            >
               <Form.Control
                 value={this.state.searchVideoContent}
                 onChange={(e) => {
@@ -68,55 +75,56 @@ export class TopNavBar extends React.Component {
                 Search
               </Button>
             </Form>
-            <Form inline>
-              <Navbar.Brand href="#home">
-                <Link to="/">
-                  <img
-                    width={150}
-                    height={40}
-                    src={logo}
-                    className="d-inline-block align-top"
-                  />
-                </Link>
-              </Navbar.Brand>
-            </Form>
-            <Form inline>
-              <Popover
-                isOpen={this.state.isPopOverOpen}
-                positions={["top", "bottom", "left", "right"]} // if you'd like, you can limit the positions
-                padding={10} // adjust padding here!
-                onClickOutside={() => this.setIsPopoverOpen(false)}
-                content={({ position, childRect, popoverRect }) => (
-                  <ArrowContainer
-                    position={position}
-                    childRect={childRect}
-                    popoverRect={popoverRect}
-                    arrowColor={"#2a2e2d"}
-                    arrowSize={8}
-                  >
-                    <div>
-                      <div className="popover-content">
-                        <Popup
-                          isPopoverOpen={this.state.isPopOverOpen}
-                          setIsPopoverOpen={this.setIsPopoverOpen}
-                        />
-                      </div>
+          </Nav>
+          <Form inline>
+            <Navbar.Brand href="#home">
+              <Link to="/">
+                <img
+                  width={150}
+                  height={40}
+                  src={logo}
+                  className="d-inline-block align-top"
+                />
+              </Link>
+            </Navbar.Brand>
+          </Form>
+          <Form style={{marginRight: '1rem'}} inline>
+            <Popover
+              isOpen={this.state.isPopOverOpen}
+              positions={["top", "bottom", "left", "right"]} // if you'd like, you can limit the positions
+              align="start"
+              padding={10} // adjust padding here!
+              onClickOutside={() => this.setIsPopoverOpen(false)}
+              content={({ position, childRect, popoverRect }) => (
+                <ArrowContainer
+                  position={position}
+                  childRect={childRect}
+                  popoverRect={popoverRect}
+                  arrowColor={"#2a2e2d"}
+                  arrowSize={8}
+                >
+                  <div>
+                    <div className="popover-content">
+                      <Popup
+                        isPopoverOpen={this.state.isPopOverOpen}
+                        setIsPopoverOpen={this.setIsPopoverOpen}
+                      />
                     </div>
-                  </ArrowContainer>
-                )}
-              >
-                <div>
-                  <Button
-                    onClick={() => {
-                      this.setIsPopoverOpen(!this.state.isPopOverOpen);
-                    }}
-                  >
-                    Upload
-                  </Button>
-                </div>
-              </Popover>
-            </Form>
-          </Container>
+                  </div>
+                </ArrowContainer>
+              )}
+            >
+              <div>
+                <Button
+                  onClick={() => {
+                    this.setIsPopoverOpen(!this.state.isPopOverOpen);
+                  }}
+                >
+                  Upload
+                </Button>
+              </div>
+            </Popover>
+          </Form>
         </Navbar>
       </div>
     );

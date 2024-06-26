@@ -10,9 +10,9 @@ const Popup = ({ isPopoverOpen, setIsPopoverOpen }) => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ backgroundColor: "white" }}>
+    <div className="popover-content">
       <h3>Upload a Video</h3>
-      <Form>
+      <Form className="uploadVideoTextArea">
         <Form.Control
           type="title"
           placeholder="Title your video"
@@ -28,7 +28,7 @@ const Popup = ({ isPopoverOpen, setIsPopoverOpen }) => {
           aria-label="Link"
         />
       </Form>
-      <Button onClick={() => setIsPopoverOpen(!isPopoverOpen)}>Cancel</Button>
+      <Button className="cancel" onClick={() => setIsPopoverOpen(!isPopoverOpen)}>Cancel</Button>
       <Button
         onClick={() => {
           // Call POST create video

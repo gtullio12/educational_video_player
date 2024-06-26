@@ -3,6 +3,7 @@ import Home from "./home";
 import View from "./View";
 import { Routes, Route } from "react-router";
 import SearchVideos from "./SearchVideos";
+import "./index.css";
 
 export class App extends React.Component {
   render() {
