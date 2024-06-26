@@ -1,4 +1,4 @@
-import { CommentIcon, ProfileIcon } from "./Icons";
+import { ProfileIcon } from "./Icons";
 import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { api } from "./api";
@@ -7,8 +7,19 @@ const DisplayVideo = ({ currentVideoId }) => {
   const [userComment, setUserComment] = useState("");
   const [videoComments, setVideoComments] = useState({ comments: [] });
   const [displayVideo, setDisplayVideo] = useState({});
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   function updateComments() {
@@ -29,34 +40,48 @@ const DisplayVideo = ({ currentVideoId }) => {
   }, []);
 
   const uploadedDate = new Date(displayVideo.created_at);
-  const formatDate = monthNames[uploadedDate.getMonth()] + " " + uploadedDate.getDate() + ", " + uploadedDate.getFullYear();
+  const formatDate =
+    monthNames[uploadedDate.getMonth()] +
+    " " +
+    uploadedDate.getDate() +
+    ", " +
+    uploadedDate.getFullYear();
 
   const display_comments = videoComments.comments.map((comment) => {
+    const date = new Date(comment.created_at);
+    const currentDate = Date.now();
+    const diffDays = parseInt((currentDate - date) / (1000 * 60 * 60 * 24), 10);
+
     return (
-      <div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{marginBottom: '30px', marginTop: '30px'}}>
+        <div style={{display: "flex", flexDirection: "row" }}>
           <ProfileIcon />
-          <p>{comment.user_id}</p>
+          <p>
+            {comment.user_id} * {diffDays}d ago
+          </p>
         </div>
-        <p>{comment.content}</p>
+
+        <p style={{ width:'fit-content', padding: '10px', borderRadius: '10px', backgroundColor: "#DCDCDC" }}> <span>{comment.content}</span> </p>
       </div>
     );
   });
   return (
     <div>
       {displayVideo.video_url && (
-        <video controls width="100%">
+        <video style={{borderRadius:'20px'}} controls width="100%">
           <source src={displayVideo.video_url} type="video/mp4" />
         </video>
       )}
       <h1>{displayVideo.title}</h1>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <ProfileIcon />
-        <p>{displayVideo.user_id} * Uploaded {formatDate}</p>
+      <div>
+        <p>
+          {displayVideo.user_id} * Uploaded {formatDate}
+        </p>
       </div>
-      <h2>Comments * {displayVideo.num_comments}</h2>
-      <Form style={{ display: "flex", flexDirection: "row" }}>
+      <h3>Comments * {displayVideo.num_comments}</h3>
+      <Form style={{ margin: "10px", display: "flex", flexDirection: "row" }}>
         <Form.Control
+          style={{ marginRight: "10px" }}
           onChange={(e) => {
             setUserComment(e.target.value);
           }}
@@ -80,13 +105,6 @@ const DisplayVideo = ({ currentVideoId }) => {
           Comment
         </Button>
       </Form>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <CommentIcon />
-        <p>{displayVideo.num_comments} comments</p>
-      </div>
-      <div>
-        <p>{displayVideo.description}</p>
-      </div>
       {display_comments && <div>{display_comments}</div>}
     </div>
   );

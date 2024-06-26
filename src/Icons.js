@@ -39,7 +39,7 @@ export class BackgroundIcon extends React.Component {
   render() {
     return (
       <img
-        width={200}
+        width={400}
         height={200}
         src={background}
         className="d-inline-block align-top"

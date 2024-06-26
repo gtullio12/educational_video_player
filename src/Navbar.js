@@ -8,6 +8,15 @@ import { Popover, ArrowContainer } from "react-tiny-popover";
 import { withRouter } from "./withRouter";
 import { Link } from "react-router-dom";
 
+const logoStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  marginTop: "-35px",
+  marginLeft: "-50px",
+  height: "100px",
+};
+
 export class TopNavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -50,13 +59,14 @@ export class TopNavBar extends React.Component {
           <Nav classname="ml-auto">
             <Form
               style={{
-                marginLeft: '1rem',
+                marginLeft: "1rem",
                 display: "flex",
                 flexDirection: "row",
               }}
               inline
             >
               <Form.Control
+                style={{ marginRight: "1rem" }}
                 value={this.state.searchVideoContent}
                 onChange={(e) => {
                   this.setSearchVideoContent(e.target.value);
@@ -76,19 +86,21 @@ export class TopNavBar extends React.Component {
               </Button>
             </Form>
           </Nav>
-          <Form inline>
-            <Navbar.Brand href="#home">
-              <Link to="/">
-                <img
-                  width={150}
-                  height={40}
-                  src={logo}
-                  className="d-inline-block align-top"
-                />
-              </Link>
-            </Navbar.Brand>
+          <Form style={logoStyle}>
+            <div style={logoStyle}>
+              <Navbar.Brand href="#home">
+                <Link to="/">
+                  <img
+                    width={150}
+                    height={40}
+                    src={logo}
+                    className="d-inline-block align-top"
+                  />
+                </Link>
+              </Navbar.Brand>
+            </div>
           </Form>
-          <Form style={{marginRight: '1rem'}} inline>
+          <Form style={{ marginRight: "1rem" }} inline>
             <Popover
               isOpen={this.state.isPopOverOpen}
               positions={["top", "bottom", "left", "right"]} // if you'd like, you can limit the positions
@@ -104,12 +116,10 @@ export class TopNavBar extends React.Component {
                   arrowSize={8}
                 >
                   <div>
-                    <div className="popover-content">
-                      <Popup
-                        isPopoverOpen={this.state.isPopOverOpen}
-                        setIsPopoverOpen={this.setIsPopoverOpen}
-                      />
-                    </div>
+                    <Popup
+                      isPopoverOpen={this.state.isPopOverOpen}
+                      setIsPopoverOpen={this.setIsPopoverOpen}
+                    />
                   </div>
                 </ArrowContainer>
               )}

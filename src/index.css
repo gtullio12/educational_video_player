@@ -37,7 +37,6 @@ code {
   color: white
 }
 
-
 .link {
   margin-top: 10px;
   margin-bottom: 10px
@@ -46,4 +45,12 @@ code {
 .title {
   margin-top: 10px;
   margin-bottom: 10px 
+}
+
+.home-page-videos {
+  margin: 10px;
+}
+
+.home-page-videos .videos{
+  margin: 5px;
 }

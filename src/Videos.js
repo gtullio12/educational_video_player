@@ -18,8 +18,8 @@ const Videos = () => {
   })
 
   return (
-    <div>
-      <Row xs={1} md={2} className="g-4">
+    <div className="home-page-videos">
+      <Row md={3} className="videos">
         {videosFromApi}
       </Row>
     </div>
