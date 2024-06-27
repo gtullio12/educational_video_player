@@ -2,7 +2,8 @@
 
 ## Solution
 Basic video player with sample videos. The website has three main pages, the `Home` component, `SearchVideos` component and the `View`(which displays the video selected from either `Home` or `SearchVideos`). The user garret_tullio is hardcoded into the frontend. For the search page, the search will show any videos based off of title of video, as long as the search content is a substring of the video title it will show up on the search page.  \
-The sample videos were taken from [here](https://gist.github.com/deepakpk009/99fd994da714996b296f11c3c371d5ee)
+The sample videos were taken from [here](https://gist.github.com/deepakpk009/99fd994da714996b296f11c3c371d5ee) \
+[Demo loom video](https://www.loom.com/share/ab79ae975dca490e817847440cad7b53)
 
 ## Instructions on how to build and run the application on the web.
 Go to root directory and run \
